@@ -1,3 +1,20 @@
+function TemplateProcessor(template) {
+    this.template = template;
+  }
+  
+  TemplateProcessor.prototype.fillIn = function (dictionary) {
+    const regex = /{{(.*?)}}/g;
+    const filledTemplate = this.template.replace(regex, (match, property) => {
+      if (dictionary.hasOwnProperty(property)) {
+        return dictionary[property];
+      } else {
+        return '';
+      }
+    });
+  
+    return filledTemplate;
+  };
+
 var template = 'My favorite month is {{month}} but not the day {{day}} or the year {{year}}';
 var dateTemplate = new TemplateProcessor(template);
 
