@@ -1,3 +1,24 @@
+function MakeMultiFilter(originalArray) {
+    let currentArray = originalArray.slice();
+  
+    function arrayFilterer(filterCriteria, callback) {
+      // Check if filterCriteria is a function, if not, return currentArray
+      if (typeof filterCriteria !== 'function') {
+        return currentArray;
+      }
+      
+      currentArray = currentArray.filter(filterCriteria);
+  
+      if (typeof callback === 'function') {
+        callback(currentArray);
+      }
+      
+      return arrayFilterer;
+    }
+  
+    return arrayFilterer;
+}
+
 var arrayFilterer1 = MakeMultiFilter([1, 2, 3]);
 
 arrayFilterer1(function (elem) {
